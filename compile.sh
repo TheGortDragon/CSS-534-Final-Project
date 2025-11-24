@@ -1,0 +1,1 @@
+javac FourColors.java Node.java Face.java

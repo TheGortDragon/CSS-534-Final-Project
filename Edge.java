@@ -19,4 +19,8 @@ public class Edge {
         return (thisVertex1 == thatVertex1 && thisVertex2 == thatVertex2) 
             || (thisVertex2 == thatVertex1 && thisVertex1 == thatVertex2);
     }
+
+    public Edge reverse() {
+        return new Edge(this.n2, this.n1);
+    }
 }
