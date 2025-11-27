@@ -32,11 +32,17 @@ class DisplayGraph {
     }
 
     private class GraphPanel extends JPanel {
-        private int textOffsetX = 17;
-        private int textOffsetY = 37;
+        // private int textOffsetX = 17;
+        // private int textOffsetY = 37;
 
-        private int lineOffsetX = 25;
-        private int lineOffsetY = 25;
+        // private int lineOffsetX = 25;
+        // private int lineOffsetY = 25;
+
+        private int textOffsetX = 8;
+        private int textOffsetY = 12;
+
+        private int lineOffsetX = 12;
+        private int lineOffsetY = 10;
 
         HashMap<String, Color> colors = new HashMap<>();
         List<Node> nodes;
@@ -58,8 +64,8 @@ class DisplayGraph {
            colors.put("Y", new Color(255,255,0));
 
            Graphics2D g2D = (Graphics2D)g;
-           g2D.setFont(g2D.getFont().deriveFont(30f));
-           g2D.setStroke(new BasicStroke(5));
+           g2D.setFont(g2D.getFont().deriveFont(10f));
+           g2D.setStroke(new BasicStroke(2));
 
            g2D.setColor(new Color(0,0,0));
            for (int i = 0; i < edges.size(); i++) {
@@ -78,7 +84,7 @@ class DisplayGraph {
            for (Node node : nodes) {
                 Color color = colors.get(node.color);
                 g2D.setColor(color);
-                g2D.fillOval(node.xPos, node.yPos, 50, 50); 
+                g2D.fillOval(node.xPos, node.yPos, 25, 25); 
 
                 g2D.setColor(new Color(255,255,255));
                 g2D.drawString("" + node.vertex, node.xPos + textOffsetX, node.yPos + textOffsetY);
@@ -104,6 +110,7 @@ class DisplayGraph {
                 + " color=" + color + " Neighbors=");
 
             for (int i = 0; i < neighbors.length; i++) {
+                if (neighbors[i].equals("")) { continue; }
                 int neighbor = Integer.parseInt(neighbors[i]);
                 System.out.print(" " + neighbor);
 
