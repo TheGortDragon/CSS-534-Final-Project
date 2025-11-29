@@ -48,6 +48,9 @@ public class GeneratePlanarGraph {
                 node2.neighbors.add(edge.n1.vertex);
             }
         }
+
+        writer.println(size);
+
         for (Node node : nodes) {
             writer.print(node.vertex + " " + node.xPos + " " + node.yPos + " N");
             Collections.sort(node.neighbors);

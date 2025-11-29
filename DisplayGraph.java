@@ -19,13 +19,13 @@ import java.io.*;
 class DisplayGraph {
     private JFrame gWin;                     // a graphics window
 
-    public DisplayGraph(List<Node> nodes, List<Edge> edges) {
+    public DisplayGraph(List<Node> nodes, List<Edge> edges, int size) {
 	    // initialize window and graphics:
         gWin = new JFrame( "Node Graph" );
         gWin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gWin.setLocation( 50, 50 );  // screen coordinates of top left corner
 	    gWin.setResizable( false );
-        GraphPanel gPanel = new GraphPanel(nodes, edges);
+        GraphPanel gPanel = new GraphPanel(nodes, edges, size);
         gWin.add(gPanel);
         gWin.setVisible( true );     // show it!
         gWin.setSize( 600, 600);
@@ -47,10 +47,12 @@ class DisplayGraph {
         HashMap<String, Color> colors = new HashMap<>();
         List<Node> nodes;
         List<Edge> edges;
+        int size;
 
-        public GraphPanel(List<Node> nodes, List<Edge> edges) {
+        public GraphPanel(List<Node> nodes, List<Edge> edges, int size) {
             this.nodes = nodes;
             this.edges = edges;
+            this.size = size;
         }
 
         @Override
@@ -80,14 +82,17 @@ class DisplayGraph {
                 g2D.drawLine(xPos1 + lineOffsetX, yPos1 + lineOffsetY, 
                     xPos2 + lineOffsetX, yPos2 + lineOffsetY);
            }
-
+            int circleSize = (int)(500 / Math.sqrt(size));
+            circleSize = circleSize < 25 ? circleSize : 25;
            for (Node node : nodes) {
                 Color color = colors.get(node.color);
                 g2D.setColor(color);
-                g2D.fillOval(node.xPos, node.yPos, 25, 25); 
+                g2D.fillOval(node.xPos, node.yPos, circleSize, circleSize); 
 
-                g2D.setColor(new Color(255,255,255));
-                g2D.drawString("" + node.vertex, node.xPos + textOffsetX, node.yPos + textOffsetY);
+                if (size < 500) {
+                    g2D.setColor(new Color(255,255,255));
+                    g2D.drawString("" + node.vertex, node.xPos + textOffsetX, node.yPos + textOffsetY);
+                }
            }
         }
     }
@@ -97,7 +102,11 @@ class DisplayGraph {
         List<Edge> edges = new ArrayList<>();
         Scanner keyboard = new Scanner( System.in ); // reading from the standard input
 
-        while ( keyboard.hasNext( ) ) {
+        int size = Integer.parseInt(keyboard.nextLine());
+        int count = 0;
+        System.out.println("Size=" + size);
+
+        while ( keyboard.hasNext( ) && count < size ) {
             int vertex = keyboard.nextInt();
             int xPos = keyboard.nextInt();
             int yPos = keyboard.nextInt();
@@ -122,8 +131,9 @@ class DisplayGraph {
             Node node = new Node(vertex, xPos, yPos, color, null);
             nodes.add(node);
             System.out.println();
+            count++;
         }
-        DisplayGraph box = new DisplayGraph(nodes, edges);  // create a graphics
+        DisplayGraph box = new DisplayGraph(nodes, edges, size);  // create a graphics
         System.out.println( "Done..." );
         keyboard.close();
     }
