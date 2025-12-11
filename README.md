@@ -1,7 +1,7 @@
 # Display Graph
 
 ## planargraph.txt
-Each node contains a vertex, x and y coordinate, color character, and a list of neighboring nodes. There is one node per line, and each part is separated by spaces.
+Each graph starts by specifiying a graph size, followed by the list of nodes. Each node contains a vertex, x and y coordinate, color character, and a list of neighboring nodes. There is one node per line, and each part is separated by spaces. 
 
 For example, vertex 2, with the coordinates (160, 20), a color of N, and a list of neighbors containing vertex 1 and 3 would be the following:
 
@@ -14,6 +14,8 @@ The color key is shown below:
 - G = Green
 - B = Blue
 - Y = Yellow
+
+Generally, the nodes are in order by vertex id, but the program makes no guarantee this is the case.
 
 ## Execution
 To output to the display, simply output the graph to the console, following the format above, and pipe it to the DisplayGraph, as shown below:
